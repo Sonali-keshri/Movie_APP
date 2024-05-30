@@ -7,7 +7,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./style.scss";
 
 import ContentWrapper from "../contentWrapper/ContentWrapper";
-import logo from "../../assets/movix-logo.svg"
+// import logo from "../../assets/movix-logo.svg"
+import logo from "../../assets/m2.png"
 
 
 const Header = () => {
@@ -107,7 +108,7 @@ const Header = () => {
               onChange={(e) => setQuery(e.target.value)}
               onKeyUp={searchQueryHandler}
             />
-            <VscChromeClose onClick={() => setShowSearch(false)} />
+            <VscChromeClose className='close' onClick={() => setShowSearch(false)} />
           </div>
         </ContentWrapper>
       </div>}

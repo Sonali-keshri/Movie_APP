@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 import CircleRating from "../circleRating/CircleRating";
 import Genres from "../genres/Genres";
 
-const Carousel = ({ data, loading, endPoint }) => {
+const Carousel = ({ data, loading, endPoint, title }) => {
 
     const carouselContatiner = useRef();
     const url = useSelector((state) => state.home.url)
@@ -28,8 +28,8 @@ const Carousel = ({ data, loading, endPoint }) => {
     const navigation = (dir) => {
         const container = carouselContatiner.current;
 
-        const scrollAmount = dir == "left" ? container.scrollLeft - (container.offsetWidth + 20) : 
-        container.scrollLeft + (container.offsetWidth + 20);
+        const scrollAmount = dir == "left" ? container.scrollLeft - (container.offsetWidth + 20) :
+            container.scrollLeft + (container.offsetWidth + 20);
 
         container.scrollTo({
             left: scrollAmount,
@@ -52,16 +52,19 @@ const Carousel = ({ data, loading, endPoint }) => {
     return (
         <div className="carousel ">
             <ContentWrapper>
-                <BsFillArrowLeftCircleFill className="carouselLeftNav arrow" onClick={() => navigation("left")} />
-                <BsFillArrowRightCircleFill className="carouselRighttNav arrow " onClick={() => navigation("right")} />
+                {title && data && <div className="carouselTitle">{title}</div>}
+               
+                    <BsFillArrowLeftCircleFill className="carouselLeftNav arrow" onClick={() => navigation("left")} />
+                    <BsFillArrowRightCircleFill className="carouselRighttNav arrow " onClick={() => navigation("right")} />
+              
                 {!loading ?
 
                     (<div className="carouselItems" ref={carouselContatiner}>
-                        {data?.map((item) => {
+                        {data && data?.map((item) => {
                             const posterUrl = item.poster_path ? url.poster + item.poster_path : PosterFallback;
                             return (
                                 <div className="carouselItem"
-                                    onClick={()=> navigate(`/${item.media_type || endPoint}/${item.id}`)}
+                                    onClick={() => navigate(`/${item.media_type || endPoint}/${item.id}`)}
                                     key={item.id}>
                                     <div className="posterBlock">
                                         <Img src={posterUrl} />

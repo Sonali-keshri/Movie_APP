@@ -12,6 +12,7 @@ import CircleRating from "../../../components/circleRating/CircleRating";
 import Img from "../../../components/lazyLoadImage/Img";
 import PosterFallback from "../../../assets/no-poster.png";
 import { Playbtn } from "../Playbtn.jsx"
+import VideoPopup from '../../../components/videoPopup/VideoPopup.jsx'
 
 const DetailsBanner = ({ video, crew }) => {
 
@@ -68,8 +69,11 @@ const DetailsBanner = ({ video, crew }) => {
                                             <div className="row">
                                                 <CircleRating rating={data.vote_average.toFixed(1)} />
 
-                                                <div className="playbtn">
-                                                    <Playbtn />
+                                                <div className="playbtn" onClick={()=>{ 
+                                                    setShow(true)
+                                                    setVideoId(video.key)
+                                                    }}>
+                                                    <Playbtn  />
                                                     <span className='text'>
                                                         Watch Trailer
                                                     </span>
@@ -170,6 +174,12 @@ const DetailsBanner = ({ video, crew }) => {
 
                                         </div>
                                     </div>
+                                    <VideoPopup
+                                        show={show}
+                                        setShow={setShow}
+                                        videoId={videoId}
+                                        setVideoId={setVideoId}
+                                    />
                                 </ContentWrapper>
                             </>
                         )}
